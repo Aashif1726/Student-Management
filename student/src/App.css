@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -35,4 +35,33 @@
   to {
     transform: rotate(360deg);
   }
+} */
+
+*{
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  padding: 0;
+  margin: 0;
 }
+
+nav{
+  padding: 10px;
+}
+
+nav a{
+  color: white;
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  width: 100px;
+  height: 70px;
+  border-left: 2px solid transparent;
+  padding-left: 4px;
+}
+ nav a.active {
+   font-weight: bolder;
+    color: yellow;
+    text-decoration: solid;
+    font-size: large;
+    padding-left: 20px;
+    /* border-left:  4px solid white; */
+ }
