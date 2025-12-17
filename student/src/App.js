@@ -9,6 +9,7 @@ import Attendance from './components/Attendance';
 import Courses from './components/Courses';
 import Profile from './components/Profile';
 import Logout from './components/Logout';
+import Login from './components/Login';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path='/courses' element={<Courses/>} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/logout' element={<Logout/>} />
+          <Route path='/login' element={<Login/>} />
           </Route>
         </Routes>
     </div>
