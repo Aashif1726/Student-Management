@@ -10,6 +10,7 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import ChatBot from "react-chatbotify"
 import MessageIcon from '@mui/icons-material/Message';
 import PrintIcon from '@mui/icons-material/Print';
+import HelpRoundedIcon from '@mui/icons-material/HelpRounded';
 
 
 const AppLayout = () => {
@@ -26,6 +27,7 @@ const AppLayout = () => {
       <main className="app-content">
         <Outlet/>
         <div style={{float:"right"}}>
+           <Button><Tooltip title="help center"> <HelpRoundedIcon/></Tooltip></Button>
            <Button><Tooltip title="notifications"><Badge badgeContent={1} color="error" variant="dot"> <NotificationsIcon/></Badge></Tooltip></Button>
           {/* <Button><Tooltip title="settings"><SettingsIcon/></Tooltip></Button> */}
            {/* <FormControlLabel control={<Switch />} /> */}
