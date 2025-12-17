@@ -5,7 +5,7 @@ import InfoOutlineRoundedIcon from '@mui/icons-material/InfoOutlineRounded';
 function Attendance() {
     return (
         <>
-         <Tooltip title="This page show user details"><InfoOutlineRoundedIcon /></Tooltip>  <span style={{padding:"4px"}}><b>Attendance Page</b></span>
+         <Tooltip title="This page show attendance details"><InfoOutlineRoundedIcon/></Tooltip>  <span style={{padding:"4px"}}><b>Attendance Page</b></span>
         </>
     )
 }
