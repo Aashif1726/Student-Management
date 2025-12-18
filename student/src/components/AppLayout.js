@@ -82,7 +82,7 @@ const AppLayout = () => {
     <div className="app-layout">
       <SideBar />
       <main className="app-content">
-        <Outlet/>
+       
         <div style={{float:"right"}}>
 
           <IconSwitch checked={checked} onChange={handleChange} />
@@ -94,6 +94,7 @@ const AppLayout = () => {
            {/* <FormControlLabel control={<Switch />} /> */}
        </div>
        {/* <ChatBot/> */}
+        <Outlet/>
       </main>
           <SpeedDial ariaLabel="speed dial" 
           sx={{position:"absolute",bottom:16,right:16}} 
