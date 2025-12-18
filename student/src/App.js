@@ -9,7 +9,6 @@ import Attendance from './components/Attendance';
 import Courses from './components/Courses';
 import Profile from './components/Profile';
 import Logout from './components/Logout';
-import Login from './components/Login';
 
 function App() {
   return (
@@ -17,13 +16,12 @@ function App() {
         <Routes>
           <Route element={<AppLayout/>}>
           <Route path='/' element={<Dashboard/>} />
-          <Route path='/students' element={<Students/>} />
+          <Route path='/stud' element={<Students/>} />
           <Route path='/staffs' element={<Staffs/>} />
           <Route path='/attendance' element={<Attendance/>} />
           <Route path='/courses' element={<Courses/>} />
           <Route path='/profile' element={<Profile/>} />
           <Route path='/logout' element={<Logout/>} />
-          <Route path='/login' element={<Login/>} />
           </Route>
         </Routes>
     </div>
