@@ -19,7 +19,7 @@ function SideBar() {
              <br/>  
                 <nav>
                     <NavLink to="/"> <HomeRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Home</p></NavLink>
-                    <NavLink to="/students"><SchoolRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Students</p></NavLink>                
+                    <NavLink to="/stud"><SchoolRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Students</p></NavLink>                
                     <NavLink to="/staffs"><PeopleAltRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Staffs</p></NavLink>                 
                     <NavLink to="/attendance"><AutoStoriesRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Attendance</p></NavLink>                
                     <NavLink to="/courses"><LibraryBooksRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Courses</p></NavLink>                
