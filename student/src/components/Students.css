@@ -1,0 +1,17 @@
+th{
+    height: 30px;
+    width: 200px;
+    background-color: #4040a1;
+    
+    
+}
+table{
+    border: 1px solid black;
+    align-items: center;
+}
+
+th, td {
+  border: 1px solid #333;
+  padding: 8px;
+  text-align: center;
+}
