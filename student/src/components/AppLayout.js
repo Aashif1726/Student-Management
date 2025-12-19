@@ -2,18 +2,27 @@ import React, { useEffect, useState } from "react";
 import { Outlet, useNavigate } from "react-router-dom";
 import SideBar from "./SideBar";
 import "./AppLayout.css";
-import { Avatar, Typography, Switch, styled, Tooltip, Box, Button } from "@mui/material";
+import { Avatar, Typography, Switch, styled, Tooltip, Box, Button ,Popover} from "@mui/material";
 import { useAuth } from "./utils/Auth";
+import LogoutIcon from '@mui/icons-material/Logout';
+import { toast } from "react-toastify";
 
 const AppLayout = () => {
   const [darkMode, setDarkMode] = useState(false);
   const auth = useAuth();
   const navigate = useNavigate();
+  const [anchorEl, setAnchorEl] = React.useState(null);
 
   useEffect(() => {
     document.body.style.backgroundColor = darkMode ? "#121212" : "#fff";
     document.body.style.color = darkMode ? "#fff" : "#000";
   }, [darkMode]);
+
+  const logoutToast = ()=>{
+    toast("Logout Successfully",{
+      className:"custom-toast"
+    })
+  }
 
   const handleDarkModeChange = (e) => {
     setDarkMode(e.target.checked);
@@ -22,6 +31,7 @@ const AppLayout = () => {
   const handleLogout = () => {
     auth.logout();
     navigate("/login"); 
+
   };
 
   const IconSwitch = styled(Switch)(({ theme }) => ({
@@ -61,18 +71,32 @@ const AppLayout = () => {
     },
   }));
 
-  const username = auth?.user?.username || "Guest";
+  const username = auth?.user?.username || ""
   const initials = username
     .split(" ")
     .map((name) => name[0])
     .join("")
     .toUpperCase();
 
+
+    const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  
+
+
   return (
     <div className="app-layout">
       <SideBar />
       <main className="app-content">
-        {/* Top-right user info */}
         <Box
           sx={{
             display: "flex",
@@ -86,9 +110,21 @@ const AppLayout = () => {
             <IconSwitch checked={darkMode} onChange={handleDarkModeChange} />
           </Tooltip>
           <Tooltip title={username}>
-            <Avatar sx={{ width: 40, height: 40 }}>{initials}</Avatar>
+         <Button sx={{width:"40px",height:"40px",borderRadius:"50%",background:"none"}} aria-describedby={id}  onClick={handleClick}> <Avatar sx={{ width: 40, height: 40 }}>{initials}</Avatar></Button> 
           </Tooltip>
-        
+          
+         <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+       <button style={{background:"transparent"}} onClick={handleLogout}><LogoutIcon sx={{color:"red"}}/> <Typography variant="p" sx={{color:"red",padding:"5px",textAlign:"center"}}>Log Out</Typography></button>
+      </Popover>
          
          
         </Box>

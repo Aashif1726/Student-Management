@@ -12,9 +12,12 @@ import Logout from './components/Logout';
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AuthProvider } from './components/utils/Auth';
+
 import Login from './components/Login';
-import PrivateRoute from './components/utils/PrivateRoute';
+// import {PrivateRoute }from './components/utils/PrivateRoute';
 import { Navigate } from 'react-router-dom';
+import { ToastContainer,toast,Zoom } from 'react-toastify';
+
 
 const LazyStudent = React.lazy(()=>import("./components/Students"))
 
@@ -39,11 +42,15 @@ function App() {
           </Route>
            <Route path="/login" element={<Login />} />
                     <Route path="/" element={
-                           <AppLayout/>
+                     
+ <AppLayout/>
+                    
+                          
                   
                     } />
                     <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
+          <ToastContainer transition={Zoom} draggable autoClose={4000} />
     </div>
     </AuthProvider>
   );
