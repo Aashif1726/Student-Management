@@ -9,7 +9,9 @@ function Students() {
     const [students,setStudents]=useState([])
 
     useEffect(()=>{
-        axios.get("http://localhost:8080/stud")
+        axios.get("http://localhost:8080/stud",{
+            withCredentials:true
+        })
         .then(res=>{
             console.log(res.data)
             setStudents(res.data.response || [])
@@ -46,10 +48,7 @@ function Students() {
                         </tr>
                     ))
                 }
-
                 </tbody>
-               
-                
              </table>
              </div>
 
