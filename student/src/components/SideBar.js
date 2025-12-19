@@ -23,7 +23,7 @@ function SideBar() {
                     <NavLink to="/staffs"><PeopleAltRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Staffs</p></NavLink>                 
                     <NavLink to="/attendance"><AutoStoriesRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Attendance</p></NavLink>                
                     <NavLink to="/courses"><LibraryBooksRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Courses</p></NavLink>                
-                    <NavLink to="/profile"><AccountCircleRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Profile</p></NavLink>              
+                    {/* <NavLink to="/profile"><AccountCircleRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Profile</p></NavLink>               */}
                     {/* <NavLink to="/logout"><PowerSettingsNewRoundedIcon/>&nbsp;<p style={{padding:"4px"}}>Logout</p></NavLink>                  */}
                 </nav>
 
