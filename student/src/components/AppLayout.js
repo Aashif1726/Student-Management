@@ -82,14 +82,15 @@ const AppLayout = () => {
     <div className="app-layout">
       <SideBar />
       <main className="app-content">
+        
        
         <div style={{float:"right"}}>
+          
 
           <IconSwitch checked={checked} onChange={handleChange} />
             
            {/* <WbSunnyRoundedIcon color="primary"/> <FormControlLabel  control={<Switch/>} checked={checked}  onChange={handleChange} sx={{width:"25px"}} /> <DarkModeRoundedIcon color="primary" /> */}
-           <Button><Tooltip title="help center"> <HelpRoundedIcon/></Tooltip></Button>
-           <Button><Tooltip title="notifications"><Badge badgeContent={1} color="error" variant="dot"> <NotificationsIcon/></Badge></Tooltip></Button>
+         
           {/* <Button><Tooltip title="settings"><SettingsIcon/></Tooltip></Button> */}
            {/* <FormControlLabel control={<Switch />} /> */}
        </div>

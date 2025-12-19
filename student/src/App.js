@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { Route,Routes } from 'react-router-dom';
+import { Outlet, Route,Routes } from 'react-router-dom';
 import AppLayout from './components/AppLayout';
 import Dashboard from './components/Dashboard';
 // import Students from './components/Students';
@@ -11,11 +11,16 @@ import Profile from './components/Profile';
 import Logout from './components/Logout';
 import React from 'react';
 import CircularProgress from '@mui/material/CircularProgress';
+import { AuthProvider } from './components/utils/Auth';
+import Login from './components/Login';
+import PrivateRoute from './components/utils/PrivateRoute';
+import { Navigate } from 'react-router-dom';
 
 const LazyStudent = React.lazy(()=>import("./components/Students"))
 
 function App() {
   return (
+    <AuthProvider>
     <div className="App">
         <Routes>
           <Route element={<AppLayout/>}>
@@ -32,8 +37,15 @@ function App() {
           <Route path='/profile' element={<Profile/>} />
           <Route path='/logout' element={<Logout/>} />
           </Route>
+           <Route path="/login" element={<Login />} />
+                    <Route path="/" element={
+                           <AppLayout/>
+                  
+                    } />
+                    <Route path="*" element={<Navigate to="/login" />} />
         </Routes>
     </div>
+    </AuthProvider>
   );
 }
 

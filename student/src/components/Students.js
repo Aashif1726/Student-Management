@@ -4,17 +4,19 @@ import InfoOutlineRoundedIcon from '@mui/icons-material/InfoOutlineRounded';
 import axios from "axios";
 import {Outlet} from "react-router-dom"
 import "./Students.css"
+import { useAuth } from './utils/Auth';
 
 function Students() {
     const [students,setStudents]=useState([])
+    const auth=useAuth()
 
     useEffect(()=>{
         axios.get("http://localhost:8080/stud",{
-            withCredentials:true
+          withCredentials:true
         })
         .then(res=>{
             console.log(res.data)
-            setStudents(res.data.response || [])
+            setStudents(res.data.response)
         })
         .catch(err=>{
             console.log(err)

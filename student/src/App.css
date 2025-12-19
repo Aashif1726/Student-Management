@@ -61,7 +61,9 @@ nav a{
    font-weight: bolder;
     color: yellow;
     text-decoration: solid;
-    font-size: large;
-    padding-left: 20px;
+    /* font-size: large; */
+    /* padding-left: 20px; */
     /* border-left:  4px solid white; */
  }
+
+
