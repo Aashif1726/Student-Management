@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip } from "@mui/material";
+import { Tooltip, Skeleton } from "@mui/material";
 import InfoOutlineRoundedIcon from "@mui/icons-material/InfoOutlineRounded";
 import axios from "axios";
 import "./Students.css";
 import { useAuth } from "./utils/Auth";
+import { useNavigate } from "react-router-dom";
 
 function Students() {
   const [students, setStudents] = useState([]);
+  const [loading, setLoading] = useState(true); // loading state
   const auth = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios
@@ -16,9 +19,11 @@ function Students() {
       })
       .then((res) => {
         setStudents(res.data.response);
+        setLoading(false); 
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false); 
       });
   }, []);
 
@@ -58,17 +63,43 @@ function Students() {
               <th>Gender</th>
             </tr>
 
-            {students.map((student) => (
-              <tr key={student.id}>
-                <td>{student.id}</td>
-                <td>{student.name}</td>
-                <td>{student.email}</td>
-                <td>{student.branch}</td>
-                <td>{student.place}</td>
-                <td>{student.marks}</td>
-                <td>{student.gender}</td>
-              </tr>
-            ))}
+            {loading
+              ? Array.from({ length: 5 }).map((_, index) => (
+                  <tr key={index}>
+                    <td>
+                      <Skeleton variant="text" width={30} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={100} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={150} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={80} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={80} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={50} />
+                    </td>
+                    <td>
+                      <Skeleton variant="text" width={50} />
+                    </td>
+                  </tr>
+                ))
+              : students.map((student) => (
+                  <tr key={student.id}>
+                    <td>{student.id}</td>
+                    <td>{student.name}</td>
+                    <td>{student.email}</td>
+                    <td>{student.branch}</td>
+                    <td>{student.place}</td>
+                    <td>{student.marks}</td>
+                    <td>{student.gender}</td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
