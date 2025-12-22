@@ -8,6 +8,7 @@ import Courses from './components/Courses';
 import Login from './components/Login';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AuthProvider } from './components/utils/Auth';
+import CreateStudent from "./components/CreateStudent";
 
 
 
@@ -40,6 +41,7 @@ function App() {
           <Route path="staffs" element={<Staffs />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="courses" element={<Courses />} />
+          <Route path="create-student" element={<CreateStudent/>} />
         </Route>
 
         
