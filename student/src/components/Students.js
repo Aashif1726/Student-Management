@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip, Skeleton, Zoom } from "@mui/material";
+import { Tooltip, Skeleton, Zoom, Pagination } from "@mui/material";
 import InfoOutlineRoundedIcon from "@mui/icons-material/InfoOutlineRounded";
 import axios from "axios";
 import "./Students.css";
@@ -12,9 +12,9 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import SchoolIcon from "@mui/icons-material/School";
-import "./CreateStudent.css";
 import { toast, ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import "./CreateStaff.css"
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -38,6 +38,14 @@ function Students() {
     gender: "",
   });
 
+  
+  const [filteredStudents, setFilteredStudents] = useState([]);
+  const [searchQuery, setSearchQuery] = useState(""); 
+  const [selectedGender, setSelectedGender] = useState(""); 
+  const [selectedBranch, setSelectedBranch] = useState(""); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(5); 
+
   const auth = useAuth();
   const navigate = useNavigate();
 
@@ -60,13 +68,11 @@ function Students() {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
-
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
 
     try {
-
       const payload = {
         ...values,
         marks: Number(values.marks),
@@ -82,10 +88,9 @@ function Students() {
       });
 
       setStudents((prev) => [...prev, res.data.response]);
-
-      toast("Student Created Successfully",{
-        className:"custom-toast"
-      })
+      toast("Student Created Successfully", {
+        className: "custom-toast",
+      });
 
       setValues({
         name: "",
@@ -102,18 +107,52 @@ function Students() {
     }
   };
 
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/stud", { withCredentials: true })
       .then((res) => {
         setStudents(res.data.response);
         setLoading(false);
+        setFilteredStudents(res.data.response);
       })
       .catch((err) => {
         console.error(err);
         setLoading(false);
       });
   }, []);
+
+ 
+  useEffect(() => {
+    let filtered = students;
+
+    if (searchQuery) {
+      filtered = filtered.filter((student) =>
+        student.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (selectedGender) {
+      filtered = filtered.filter((student) => student.gender === selectedGender);
+    }
+
+    if (selectedBranch) {
+      filtered = filtered.filter((student) => student.branch === selectedBranch);
+    }
+
+    setFilteredStudents(filtered);
+    setCurrentPage(1); 
+  }, [searchQuery, selectedGender, selectedBranch, students]);
+
+  
+  const indexOfLastStudent = currentPage * itemsPerPage;
+  const indexOfFirstStudent = indexOfLastStudent - itemsPerPage;
+  const currentStudents = filteredStudents.slice(indexOfFirstStudent, indexOfLastStudent);
+
+  
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
 
   return (
     <>
@@ -135,6 +174,38 @@ function Students() {
       >
         Create
       </button>
+
+      <br /><br />
+      <div style={{ marginBottom: "20px" }}>
+        <input
+          type="text"
+          placeholder="Search by Name"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={{ padding: "10px", marginRight: "10px", width: "200px" }}
+        />
+        <select
+          value={selectedGender}
+          onChange={(e) => setSelectedGender(e.target.value)}
+          style={{ padding: "10px", marginRight: "10px" }}
+        >
+          <option value="">Select Gender</option>
+          <option value="Male">Male</option>
+          <option value="Female">Female</option>
+          <option value="Other">Other</option>
+        </select>
+        <select
+          value={selectedBranch}
+          onChange={(e) => setSelectedBranch(e.target.value)}
+          style={{ padding: "10px", marginRight: "10px" }}
+        >
+          <option value="">Select Branch</option>
+          <option value="Computer Science">Computer Science</option>
+          <option value="Mechanical">Mechanical</option>
+          <option value="Electrical">Electrical</option>
+       
+        </select>
+      </div>
 
       <div style={{ width: "100%" }}>
         <br />
@@ -177,7 +248,7 @@ function Students() {
                     </td>
                   </tr>
                 ))
-              : students.map((student) => (
+              : currentStudents.map((student) => (
                   <tr key={student.id}>
                     <td>{student.id}</td>
                     <td>{student.name}</td>
@@ -192,11 +263,16 @@ function Students() {
         </table>
       </div>
 
-      <BootstrapDialog
-        onClose={handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={open}
-      >
+    
+      <Pagination
+        count={Math.ceil(filteredStudents.length / itemsPerPage)}
+        page={currentPage}
+        onChange={handlePageChange}
+        color="primary"
+        style={{ marginTop: "20px", display: "flex", justifyContent: "center" }}
+      />
+
+      <BootstrapDialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
         <DialogTitle sx={{ m: 0, p: 2, textAlign: "center" }}>
           <SchoolIcon sx={{ color: "#4040a1" }} /> CREATE STUDENT
         </DialogTitle>
@@ -259,7 +335,7 @@ function Students() {
               value={values.gender}
               onChange={handleChange}
               required
-              style={{width:"300px",padding:"10px"}}
+              style={{ width: "300px", padding: "10px" }}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
@@ -270,10 +346,7 @@ function Students() {
         </DialogContent>
 
         <DialogActions>
-          <Button
-            onClick={handleClose}
-            sx={{ width: "150px", color: "white", backgroundColor: "#4040a1" }}
-          >
+          <Button onClick={handleClose} sx={{ width: "150px", color: "white", backgroundColor: "#4040a1" }}>
             Close
           </Button>
           <Button
@@ -285,9 +358,8 @@ function Students() {
           </Button>
         </DialogActions>
       </BootstrapDialog>
-      <ToastContainer transition={Zoom}
-      draggable={true}
-      autoClose={4000} />
+
+      <ToastContainer transition={Zoom} draggable={true} autoClose={4000} />
     </>
   );
 }
