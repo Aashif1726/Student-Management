@@ -251,6 +251,7 @@ function Students() {
               value={values.gender}
               onChange={handleChange}
               required
+              style={{width:"300px",padding:"10px"}}
             >
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
