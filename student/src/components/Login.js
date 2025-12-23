@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useAuth } from './utils/Auth';
 import { toast, ToastContainer, Zoom } from "react-toastify";
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
 import './Login.css';
 
@@ -82,6 +82,8 @@ function Login() {
           </div>
 
           <button type="submit">Login</button>
+          <br /><br />
+        
         </form>
 
         {error && <p className="error-msg">{error}</p>}

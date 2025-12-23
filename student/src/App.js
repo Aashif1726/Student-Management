@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import AppLayout from './components/AppLayout';
 import Dashboard from './components/Dashboard';
 import Staffs from './components/Staffs';
@@ -8,14 +8,21 @@ import Courses from './components/Courses';
 import Login from './components/Login';
 import CircularProgress from '@mui/material/CircularProgress';
 import { AuthProvider } from './components/utils/Auth';
+import Signup from "./components/Signup";
+import { Button } from "@mui/material";
+import { ToastContainer } from "react-toastify";
+
 
 
 
 const LazyStudent = React.lazy(() => import("./components/Students"));
 
+
 function App() {
+  const navigate = useNavigate()
 
   return (
+    <>
     <AuthProvider>
       <Routes>
       
@@ -40,12 +47,17 @@ function App() {
           <Route path="staffs" element={<Staffs />} />
           <Route path="attendance" element={<Attendance />} />
           <Route path="courses" element={<Courses />} />   
+          
+          
         </Route>
 
         
         <Route path="*" element={<Navigate to="/login" />} />
+       
       </Routes>
     </AuthProvider>
+    
+    </>
   );
 }
 
