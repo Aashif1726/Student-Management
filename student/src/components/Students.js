@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Tooltip, Skeleton } from "@mui/material";
+import { Tooltip, Skeleton, Zoom } from "@mui/material";
 import InfoOutlineRoundedIcon from "@mui/icons-material/InfoOutlineRounded";
 import axios from "axios";
 import "./Students.css";
@@ -13,6 +13,8 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import SchoolIcon from "@mui/icons-material/School";
 import "./CreateStudent.css";
+import { toast, ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
@@ -58,8 +60,10 @@ function Students() {
     setValues((prev) => ({ ...prev, [name]: value }));
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+  
 
     try {
 
@@ -78,6 +82,10 @@ function Students() {
       });
 
       setStudents((prev) => [...prev, res.data.response]);
+
+      toast("Student Created Successfully",{
+        className:"custom-toast"
+      })
 
       setValues({
         name: "",
@@ -277,6 +285,9 @@ function Students() {
           </Button>
         </DialogActions>
       </BootstrapDialog>
+      <ToastContainer transition={Zoom}
+      draggable={true}
+      autoClose={4000} />
     </>
   );
 }
