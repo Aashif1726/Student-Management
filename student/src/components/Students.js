@@ -44,7 +44,7 @@ function Students() {
   const [selectedGender, setSelectedGender] = useState(""); 
   const [selectedBranch, setSelectedBranch] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage] = useState(5); 
+  const [itemsPerPage] = useState(10); 
 
   const auth = useAuth();
   const navigate = useNavigate();
