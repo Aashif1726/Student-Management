@@ -9,10 +9,12 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
-import SchoolIcon from '@mui/icons-material/School';
-import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
-import ApartmentIcon from '@mui/icons-material/Apartment';
-import AssessmentIcon from '@mui/icons-material/Assessment';
+import SchoolIcon from "@mui/icons-material/School";
+import PeopleAltIcon from "@mui/icons-material/PeopleAlt";
+import ApartmentIcon from "@mui/icons-material/Apartment";
+import AssessmentIcon from "@mui/icons-material/Assessment";
+import { BarChart } from "@mui/x-charts/BarChart";
+import { PieChart } from "@mui/x-charts/PieChart";
 
 function Dashboard() {
   const [students, setStudents] = useState([]);
@@ -27,7 +29,7 @@ function Dashboard() {
       );
   }, []);
 
-
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/staffs", { withCredentials: true })
@@ -52,6 +54,51 @@ function Dashboard() {
       ? (totalMarks / students.length).toFixed(2)
       : "0.00";
 
+
+  const branchMap = {};
+  students.forEach((s) => {
+    branchMap[s.branch] = (branchMap[s.branch] || 0) + 1;
+  });
+
+  const studentsVsPlace = {
+    xAxis: [
+      {
+        scaleType: "band",
+        data: Object.keys(branchMap),
+      },
+    ],
+    series: [
+      {
+        data: Object.values(branchMap),
+        label: "Students",
+        color: "#1976d2",
+      },
+    ],
+  };
+
+
+  const roleMap = {};
+  staffs.forEach((s) => {
+    roleMap[s.role] = (roleMap[s.role] || 0) + 1;
+  });
+
+  const staffsVsRole = Object.keys(roleMap).map((role, index) => ({
+    id: index,
+    label: role,
+    value: roleMap[role],
+  }));
+
+  const genderMap = {};
+  staffs.forEach((s) => {
+    genderMap[s.gender] = (genderMap[s.gender] || 0) + 1;
+  });
+
+  const staffsVsGender = Object.keys(genderMap).map((gender, index) => ({
+    id: index,
+    label: gender,
+    value: genderMap[gender],
+  }));
+
   return (
     <>
       <Tooltip title="This page shows dashboard details">
@@ -71,41 +118,102 @@ function Dashboard() {
           gap: 3,
         }}
       >
-        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px  #4040a1"}}>
+        <Card sx={{ backgroundColor: "transparent", boxShadow: "2px 2px 2px 2px #4040a1" }}>
           <CardContent>
-            <Typography variant="subtitle1" color="primary"><SchoolIcon/>   &nbsp;Total Students</Typography>
+            <Typography color="primary">
+              <SchoolIcon /> &nbsp;Total Students
+            </Typography>
             <Typography variant="h4" color="primary">
               {totalStudents}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px purple"}}>
+        <Card sx={{ backgroundColor: "transparent", boxShadow: "2px 2px 2px 2px purple" }}>
           <CardContent>
-            <Typography variant="subtitle1" color="secondary"><PeopleAltIcon/> &nbsp;Total Staffs</Typography>
+            <Typography color="secondary">
+              <PeopleAltIcon /> &nbsp;Total Staffs
+            </Typography>
             <Typography variant="h4" color="secondary">
               {totalStaffs}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px green"}}>
+        <Card sx={{ backgroundColor: "transparent", boxShadow: "2px 2px 2px 2px green" }}>
           <CardContent>
-            <Typography variant="subtitle1" color="success"><ApartmentIcon/>  &nbsp;Total Branches</Typography>
+            <Typography color="success.main">
+              <ApartmentIcon /> &nbsp;Total Branches
+            </Typography>
             <Typography variant="h4" color="success.main">
               {totalBranches}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px orange"}}>
+        <Card sx={{ backgroundColor: "transparent", boxShadow: "2px 2px 2px 2px orange" }}>
           <CardContent>
-            <Typography variant="subtitle1" color="warning"> <AssessmentIcon /> &nbsp;Average Marks</Typography>
+            <Typography color="warning.main">
+              <AssessmentIcon /> &nbsp;Average Marks
+            </Typography>
             <Typography variant="h4" color="warning.main">
               {avgMarks}
             </Typography>
           </CardContent>
         </Card>
+      </Box>
+
+      <br /><br />
+
+      <Box
+        sx={{
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))",
+          gap: 4,
+        }}
+      >
+        <Box>
+          <Typography align="center" variant="h6">
+            Students vs Place
+          </Typography>
+          <BarChart
+            xAxis={studentsVsPlace.xAxis}
+            series={studentsVsPlace.series}
+            height={300}
+          />
+        </Box>
+
+        <Box>
+          <Typography align="center" variant="h6">
+            Staffs vs Role
+          </Typography>
+          <PieChart
+            series={[
+              {
+                data: staffsVsRole,
+                innerRadius: 40,
+                outerRadius: 100,
+              },
+            ]}
+            height={300}
+          />
+        </Box>
+
+        <Box>
+          <Typography align="center" variant="h6">
+            Staffs vs Gender
+          </Typography>
+          <PieChart
+            series={[
+              {
+                data: staffsVsGender,
+                innerRadius: 40,
+                outerRadius: 100,
+              },
+            ]}
+            height={300}
+          />
+        </Box>
       </Box>
     </>
   );
