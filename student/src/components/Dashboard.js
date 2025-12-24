@@ -67,36 +67,36 @@ function Dashboard() {
           gap: 3,
         }}
       >
-        <Card elevation={3}>
+        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px  #4040a1"}}>
           <CardContent>
-            <Typography variant="subtitle1">Total Students</Typography>
+            <Typography variant="subtitle1" color="primary">Total Students</Typography>
             <Typography variant="h4" color="primary">
               {totalStudents}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3}>
+        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px purple"}}>
           <CardContent>
-            <Typography variant="subtitle1">Total Staffs</Typography>
+            <Typography variant="subtitle1" color="secondary">Total Staffs</Typography>
             <Typography variant="h4" color="secondary">
               {totalStaffs}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3}>
+        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px green"}}>
           <CardContent>
-            <Typography variant="subtitle1">Total Branches</Typography>
+            <Typography variant="subtitle1" color="success">Total Branches</Typography>
             <Typography variant="h4" color="success.main">
               {totalBranches}
             </Typography>
           </CardContent>
         </Card>
 
-        <Card elevation={3}>
+        <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px orange"}}>
           <CardContent>
-            <Typography variant="subtitle1">Average Marks</Typography>
+            <Typography variant="subtitle1" color="warning">Average Marks</Typography>
             <Typography variant="h4" color="warning.main">
               {avgMarks}
             </Typography>
