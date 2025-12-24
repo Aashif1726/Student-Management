@@ -37,7 +37,7 @@ function Courses() {
         <InfoOutlineRoundedIcon />
       </Tooltip>
       <span style={{ padding: "4px" }}>
-        <b>Courses Page</b>
+        <b>Stats Page</b>
       </span>
       <br /> <br />
       <table>
