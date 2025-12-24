@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import InfoOutlineRoundedIcon from "@mui/icons-material/InfoOutlineRounded";
 import { Tooltip } from "@mui/material";
+import "./Stats.css"
 
 function Courses() {
   const [stats, setStats] = useState([]);
