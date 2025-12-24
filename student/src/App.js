@@ -46,7 +46,7 @@ function App() {
           }/>
           <Route path="staffs" element={<Staffs />} />
           <Route path="attendance" element={<Attendance />} />
-          <Route path="courses" element={<Courses />} />   
+          <Route path="stats" element={<Courses />} />   
           
           
         </Route>
