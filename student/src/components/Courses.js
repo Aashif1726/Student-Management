@@ -17,11 +17,12 @@ function Courses() {
 
         students.forEach((s) => {
           if (!branchMap[s.branch]) {
-            branchMap[s.branch] = { branch: s.branch, male: 0, female: 0, total: 0 };
+            branchMap[s.branch] = { branch: s.branch, male: 0, female: 0, others:0 ,total: 0 };
           }
 
           if (s.gender === "Male") branchMap[s.branch].male += 1;
           else if (s.gender === "Female") branchMap[s.branch].female += 1;
+          else if (s.gender ==="others") branchMap[s.branch].others +=1;
 
           branchMap[s.branch].total += 1;
         });
@@ -30,6 +31,16 @@ function Courses() {
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const overall = stats.reduce((acc,curr)=>{
+    acc.male += curr.male || 0;
+    acc.female += curr.female || 0;
+    acc.others += curr.others || 0;
+    acc.total += curr.total || 0;
+    return acc;
+  },{
+    male:0,female:0,others:0,total:0
+  });
 
   return (
     <>
@@ -46,6 +57,7 @@ function Courses() {
             <th>Branch</th>
             <th>Male</th>
             <th>Female</th>
+            <th>Others</th>
             <th>Total Students</th>
           </tr>
         </thead>
@@ -55,9 +67,18 @@ function Courses() {
               <td>{b.branch}</td>
               <td>{b.male}</td>
               <td>{b.female}</td>
+              <td>{b.others}</td>
               <td>{b.total}</td>
             </tr>
           ))}
+
+            <tr> 
+               <td style={{backgroundColor:"#4040a1",color:"#fff"}}>Overall</td>
+              <td>{overall.male}</td>
+              <td>{overall.female}</td>
+              <td>{overall.others}</td>
+              <td>{overall.total}</td>
+            </tr>
         </tbody>
       </table>
     </>
