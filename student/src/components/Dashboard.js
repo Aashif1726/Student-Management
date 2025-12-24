@@ -9,6 +9,10 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
+import SchoolIcon from '@mui/icons-material/School';
+import PeopleAltIcon from '@mui/icons-material/PeopleAlt';
+import ApartmentIcon from '@mui/icons-material/Apartment';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 function Dashboard() {
   const [students, setStudents] = useState([]);
@@ -69,7 +73,7 @@ function Dashboard() {
       >
         <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px  #4040a1"}}>
           <CardContent>
-            <Typography variant="subtitle1" color="primary">Total Students</Typography>
+            <Typography variant="subtitle1" color="primary"><SchoolIcon/>   &nbsp;Total Students</Typography>
             <Typography variant="h4" color="primary">
               {totalStudents}
             </Typography>
@@ -78,7 +82,7 @@ function Dashboard() {
 
         <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px purple"}}>
           <CardContent>
-            <Typography variant="subtitle1" color="secondary">Total Staffs</Typography>
+            <Typography variant="subtitle1" color="secondary"><PeopleAltIcon/> &nbsp;Total Staffs</Typography>
             <Typography variant="h4" color="secondary">
               {totalStaffs}
             </Typography>
@@ -87,7 +91,7 @@ function Dashboard() {
 
         <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px green"}}>
           <CardContent>
-            <Typography variant="subtitle1" color="success">Total Branches</Typography>
+            <Typography variant="subtitle1" color="success"><ApartmentIcon/>  &nbsp;Total Branches</Typography>
             <Typography variant="h4" color="success.main">
               {totalBranches}
             </Typography>
@@ -96,7 +100,7 @@ function Dashboard() {
 
         <Card elevation={3} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px orange"}}>
           <CardContent>
-            <Typography variant="subtitle1" color="warning">Average Marks</Typography>
+            <Typography variant="subtitle1" color="warning"> <AssessmentIcon /> &nbsp;Average Marks</Typography>
             <Typography variant="h4" color="warning.main">
               {avgMarks}
             </Typography>
