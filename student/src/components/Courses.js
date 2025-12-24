@@ -74,10 +74,10 @@ function Courses() {
 
             <tr> 
                <td style={{backgroundColor:"#4040a1",color:"#fff"}}>Overall</td>
-              <td>{overall.male}</td>
-              <td>{overall.female}</td>
-              <td>{overall.others}</td>
-              <td>{overall.total}</td>
+              <td><h3>{overall.male}</h3></td>
+              <td><h3>{overall.female}</h3></td>
+              <td><h3>{overall.others}</h3></td>
+              <td><h3>{overall.total}</h3></td>
             </tr>
         </tbody>
       </table>
