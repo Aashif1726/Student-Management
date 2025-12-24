@@ -194,7 +194,6 @@ function Students() {
           <option value="">Select Gender</option>
           <option value="Male">Male</option>
           <option value="Female">Female</option>
-          <option value="Other">Other</option>
         </select>
         <select
           value={selectedBranch}
@@ -202,9 +201,13 @@ function Students() {
           style={{ padding: "10px", marginRight: "10px" }}
         >
           <option value="">Select Branch</option>
-          <option value="Computer Science">Computer Science</option>
-          <option value="Mechanical">Mechanical</option>
-          <option value="Electrical">Electrical</option>
+          <option value="Chemistry">Chemistry</option>
+          <option value="Economics">Economics</option>
+          <option value="Philosophy">Philosophy</option>
+            <option value="Maths">Maths</option>
+              <option value="Data Science">Data Science</option>
+                <option value="Tamil">Tamil</option>
+                  <option value="Physics">Physics</option>
        
         </select>
       </div>
@@ -342,7 +345,6 @@ function Students() {
               <option value="">Select Gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
-              <option value="Other">Other</option>
             </select>
           </form>
         </DialogContent>
