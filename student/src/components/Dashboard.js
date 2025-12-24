@@ -6,6 +6,7 @@ import {
   Tooltip,
   Typography,
   Box,
+  Paper,
 } from "@mui/material";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -15,10 +16,13 @@ import ApartmentIcon from "@mui/icons-material/Apartment";
 import AssessmentIcon from "@mui/icons-material/Assessment";
 import { BarChart } from "@mui/x-charts/BarChart";
 import { PieChart } from "@mui/x-charts/PieChart";
+import { useAuth } from "./utils/Auth";
+
 
 function Dashboard() {
   const [students, setStudents] = useState([]);
   const [staffs, setStaffs] = useState([]);
+  const auth = useAuth()
 
   useEffect(() => {
     axios
@@ -65,6 +69,7 @@ function Dashboard() {
       {
         scaleType: "band",
         data: Object.keys(branchMap),
+        
       },
     ],
     series: [
@@ -99,6 +104,8 @@ function Dashboard() {
     value: genderMap[gender],
   }));
 
+  const user = JSON.parse(localStorage.getItem("user") || "{}");
+
   return (
     <>
       <Tooltip title="This page shows dashboard details">
@@ -108,6 +115,8 @@ function Dashboard() {
       <span style={{ padding: "4px" }}>
         <b>Dashboard Page</b>
       </span>
+      <br/><br/>
+          <b style={{color:"#4040a1",textTransform:"capitalize"}}>Welcome {user.username} !!</b>
 
       <br /><br />
 
@@ -164,6 +173,7 @@ function Dashboard() {
       </Box>
 
       <br /><br />
+      <Paper elevation={5} sx={{backgroundColor:"transparent",boxShadow:"2px 2px 2px 2px #4040a1"}}>
 
       <Box
         sx={{
@@ -173,18 +183,19 @@ function Dashboard() {
         }}
       >
         <Box>
-          <Typography align="center" variant="h6">
+          <Typography align="center" variant="h6" color="primary">
             Students vs Place
           </Typography>
           <BarChart
             xAxis={studentsVsPlace.xAxis}
             series={studentsVsPlace.series}
             height={300}
+            
           />
         </Box>
 
         <Box>
-          <Typography align="center" variant="h6">
+          <Typography align="center" variant="h6" color="primary">
             Staffs vs Role
           </Typography>
           <PieChart
@@ -200,7 +211,7 @@ function Dashboard() {
         </Box>
 
         <Box>
-          <Typography align="center" variant="h6">
+          <Typography align="center" variant="h6" color="primary">
             Staffs vs Gender
           </Typography>
           <PieChart
@@ -215,6 +226,7 @@ function Dashboard() {
           />
         </Box>
       </Box>
+      </Paper>
     </>
   );
 }
