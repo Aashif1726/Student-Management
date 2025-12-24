@@ -12,7 +12,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
 import DialogActions from "@mui/material/DialogActions";
 import SchoolIcon from "@mui/icons-material/School";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, ToastContainer,Bounce } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import "./CreateStaff.css"
 
@@ -69,6 +69,9 @@ function Students() {
   };
 
  
+
+
+ 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -79,18 +82,17 @@ function Students() {
       };
 
       if (!payload.gender) {
-        alert("Please select a gender");
+        toast.warn("Please select a gender");
         return;
       }
 
       const res = await axios.post("http://localhost:8080/stud", payload, {
         withCredentials: true,
       });
+      
 
       setStudents((prev) => [...prev, res.data.response]);
-      toast("Student Created Successfully", {
-        className: "custom-toast",
-      });
+    toast.success("Student Created Successfully")
 
       setValues({
         name: "",
@@ -102,8 +104,8 @@ function Students() {
       });
       setOpen(false);
     } catch (err) {
-      console.error(err.response?.data || err);
-      alert("Failed to create student: " + (err.response?.data?.message || ""));
+      toast.error(err.response?.data || err);
+      toast.error("Failed to create student: ");
     }
   };
 
@@ -117,7 +119,7 @@ function Students() {
         setFilteredStudents(res.data.response);
       })
       .catch((err) => {
-        console.error(err);
+        toast.error("Error ",err);
         setLoading(false);
       });
   }, []);
@@ -353,13 +355,14 @@ function Students() {
             type="submit"
             form="create-student"
             sx={{ width: "150px", color: "white", backgroundColor: "#4040a1" }}
+          
           >
             Create
           </Button>
         </DialogActions>
       </BootstrapDialog>
 
-      <ToastContainer transition={Zoom} draggable={true} autoClose={4000} />
+      <ToastContainer transition={Bounce} draggable={true} autoClose={4000} />
     </>
   );
 }
