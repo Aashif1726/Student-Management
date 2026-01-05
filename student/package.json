@@ -32,6 +32,10 @@
       "react-app/jest"
     ]
   },
+  "dependencies": {
+  "react-scripts": "^5.0.1"
+}
+
   "browserslist": {
     "production": [
       ">0.2%",
