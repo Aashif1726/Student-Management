@@ -1,0 +1,1 @@
+Student Management Application is Simple Application for Managing Students and Staffs.
